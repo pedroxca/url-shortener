@@ -15,8 +15,8 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
-app.use(shortenerRoutes);
 app.use(express.static('./public'));
+app.use(shortenerRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);

@@ -4,6 +4,22 @@ const { nanoid } = require('nanoid');
 
 
 
+module.exports.redirectToUrlBySlug = async (req, res) => {
+  try {
+    const {id: slug } = req.params;
+    const data = await pool.query('SELECT url FROM urls WHERE slug = $1', [slug]);
+    const url = data.rows[0];
+    if (url) {
+      res.redirect(url.url);
+    }
+    res.redirect(`/error.html`);
+
+  } catch (err) {
+    res.redirect('/?error=Link not found')
+    console.error(err.message);
+  }
+
+}
 module.exports.createNewSlug = async (req, res) => {
   try {
     let { slug, url } = req.body;
@@ -33,26 +49,4 @@ module.exports.createNewSlug = async (req, res) => {
     }
   }
 
-}
-
-module.exports.redirectToUrlBySlug = async (req, res) => {
-  // SELECT url FROM urls WHERE slug = slug;
-
-  try {
-    const { slug } = req.params;
-    const data = await pool.query('SELECT url FROM urls WHERE slug = $1', [slug]);
-    const url = data.rows[0].url
-    if (url) {
-      res.redirect(url);
-    }
-    
-  } catch (err) {
-    const { slug } = req.params;
-    console.error(err.message);
-    res.redirect(`/error/?error=${slug} not found`);
-  }
-
-}
-module.exports.errorPage = async (req, res) =>{
-  res.send('Error 404 slug not found 😿😿😿');
 }
