@@ -10,6 +10,9 @@ const handleEventSubmit = async e => {
     slug,
     url
   }
+  if (!body.url) {
+    apiResponse.innerHTML = 'Url is required 🐌!';
+  }
   const response = await fetch('/url', {
     method: 'POST',
     headers: {
@@ -19,9 +22,6 @@ const handleEventSubmit = async e => {
   });
   const data = await response.json();
   apiResponse.innerHTML = `<h3>Slug: ${data.rows[0].slug}</h3><h3>Url: ${data.rows[0].url}</h3>`
-
-    console.log(data.rows[0]);
-
 }
 
 
