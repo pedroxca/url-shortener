@@ -1,6 +1,7 @@
 const form = document.querySelector('form');
 const apiResponse = document.querySelector('#api-response')
 
+
 const handleEventSubmit = async e => {
   e.preventDefault();
   const formData = new FormData(form);
