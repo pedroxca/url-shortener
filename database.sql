@@ -1,4 +1,4 @@
-CREATE DATABASE url_shortener;
+-- CREATE DATABASE url_shortener;
 
 CREATE TABLE urls(
   slug_id SERIAL PRIMARY KEY,
