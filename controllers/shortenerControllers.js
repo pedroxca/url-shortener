@@ -37,14 +37,19 @@ module.exports.createNewSlug = async (req, res) => {
     if (err.message.startsWith('duplicate key value violates unique constraint')) {
       res.status(400)
       err.message = 'Slug in use 🍔'
+      res.send(err.message)
     }
     else if (err.message.startsWith('url must be a valid URL')) {
       res.status(400)
       err.message = 'url must be a valid URL 🐌'
+      res.send(err.message)
+
     }
     else if (err.message.startsWith('url is a required field')) {
       res.status(400)
       err.message = 'url is required 🐌';
+      res.send(err.message)
+
     }
   }
 
