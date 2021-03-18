@@ -1,9 +1,14 @@
 const form = document.querySelector('form');
-const apiResponse = document.querySelector('#api-response')
+const apiResponse = document.querySelector('#api-response');
+const loadingElement = document.querySelector('#loading');
+
+loadingElement.style.display = 'none';
 
 
 const handleEventSubmit = async e => {
   e.preventDefault();
+  apiResponse.innerHTML = '';
+  loadingElement.style.display = '';
   const formData = new FormData(form);
   const slug = formData.get('slug');
   const url = formData.get('url');
@@ -22,6 +27,8 @@ const handleEventSubmit = async e => {
     body: JSON.stringify(body)
   });
   const data = await response.json();
+  form.reset();
+  loadingElement.style.display = 'none';
   apiResponse.innerHTML = `<h3>Slug: ${data.rows[0].slug}</h3><h3>Url: ${data.rows[0].url}</h3>`
 }
 
