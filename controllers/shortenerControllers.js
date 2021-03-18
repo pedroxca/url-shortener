@@ -31,6 +31,7 @@ module.exports.createNewSlug = async (req, res) => {
     }
     slug = slug.toLowerCase()
     const newUrl = await pool.query('INSERT INTO urls (slug, url) VALUES($1, $2) RETURNING *', [slug, url]);
+    console.log(newUrl.rows[0].slug, newUrl.rows[0].url);
     res.send(newUrl);
   } catch (err) {
     console.error(err.message);
