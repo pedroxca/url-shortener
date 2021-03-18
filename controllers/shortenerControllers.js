@@ -51,6 +51,8 @@ module.exports.createNewSlug = async (req, res) => {
       res.send(err.message)
 
     }
+    res.send(err.message)
+
   }
 
 }

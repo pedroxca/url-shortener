@@ -15,7 +15,8 @@ const proConfig = process.env.DATABASE_URL //HEROKU ADDONS
 
 
 const pool = new Pool({
-  connectionString: process.env.NODE_ENV === 'production' ? proConfig : devConfig
+  connectionString: process.env.NODE_ENV === 'production' ? proConfig : devConfig,
+  sslmode: process.env.NODE_ENV === 'production' ? "require" : "disable"
 });
 
 module.exports = pool;
