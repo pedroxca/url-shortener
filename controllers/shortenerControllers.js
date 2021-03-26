@@ -16,7 +16,7 @@ module.exports.redirectToUrlBySlug = async (req, res) => {
   } catch (err) {
     // res.redirect(`/?error=LinkNotFound`);
     console.error(err.message);
-    // res.send(err.message)
+    // res.send(err.message)  
   }
 
 }
