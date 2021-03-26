@@ -12,10 +12,11 @@ module.exports.redirectToUrlBySlug = async (req, res) => {
     if (url) {
       res.redirect(url.url);
     }
-    res.redirect(`/error.html`);
+    res.redirect(`/?error404=${slug}_not_found`);
   } catch (err) {
-    // res.redirect(`/error.html`);
+    // res.redirect(`/?error=LinkNotFound`);
     console.error(err.message);
+    // res.send(err.message)
   }
 
 }
