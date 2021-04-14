@@ -1,0 +1,26 @@
+<link rel="stylesheet" type="text/css" href="globals.css">
+
+<h1>Url shortener</h1>
+<form method="POST">
+  <div>
+    <label for="slug">Slug:</label>
+    <input type="text" name="slug" id="slug">
+  </div>
+  <div>
+    <label for="url">Url:</label>
+    <input type="url" name="url" id="url" >
+  </div>
+  <div>
+    <button type="submit">Create</button>
+
+  </div>
+</form>
+<div id="api-response">
+ <% if(slug !== undefined){%>
+  <p>Slug: <%= slug%></p>
+  <p>Url: <%= url%></p>
+  <%}%>
+ <% if(error){%>
+  <p>Error: <%=error%></p>
+  <% }%> 
+</div>
