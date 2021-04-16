@@ -24,3 +24,10 @@
   <p>Error: <%=error%></p>
   <% }%> 
 </div>
+<ul classname="slugsFromUser">
+	<% slugs.forEach(slug=>{  %>
+		<li >
+      <%= slug.slug %>
+      </li>
+	<% }) %>
+</ul>

@@ -23,7 +23,7 @@ module.exports.registerUser = async (req, res) => {
   } catch (err) {
     res.redirect('/register');
   }
-  console.log(await getAllUsers());
+  // console.log(await getAllUsers());
 }
 module.exports.getLoginPage = async (req, res) => {
   res.render('login.ejs');

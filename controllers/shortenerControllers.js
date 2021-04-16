@@ -5,13 +5,26 @@ const { nanoid } = require('nanoid');
 const options = {
   slug: null,
   url: null,
-  error: null
+  error: null,
+  slugs: null
 }
 module.exports.getErrorPage = async (req, res) => {
-   res.render('error.ejs');
+
+  res.render('error.ejs');
 }
 module.exports.getHomePage = async (req, res) => {
+  const user = await req.user;
+  const urls = await pool.query("select urls.u_id, urls.slug from urls left join users on urls.u_id='users.u_id'");
+  const newUrls = urls.rows.map(url => {
+    if (url.u_id == user.u_id) {
+      return url
+    } else {
+      return
+    }
+  });
+  options.slugs = newUrls.filter(u => u !== undefined);
   res.render('index.ejs', options);
+
 }
 module.exports.redirectToUrlBySlug = async (req, res) => {
   try {
@@ -32,6 +45,7 @@ module.exports.redirectToUrlBySlug = async (req, res) => {
 module.exports.createNewSlug = async (req, res) => {
   try {
     let { slug, url } = req.body;
+    const user = await req.user;
     await slugSchema.validate({
       slug,
       url
@@ -40,8 +54,8 @@ module.exports.createNewSlug = async (req, res) => {
       slug = nanoid(5);
     }
     slug = slug.toLowerCase()
-    const newUrl = await pool.query('INSERT INTO urls (slug, url) VALUES($1, $2) RETURNING *', [slug, url]);
-    console.log(newUrl.rows[0].slug, newUrl.rows[0].url);
+    const newUrl = await pool.query('INSERT INTO urls (u_id, slug, url) VALUES($1, $2, $3) RETURNING *', [user.u_id, slug, url]);
+    console.log(newUrl.rows[0].slug, newUrl.rows[0].url, newUrl.rows[0].u_id);
     options.slug = newUrl.rows[0].slug;
     options.url = newUrl.rows[0].url;
     options.error = null;
